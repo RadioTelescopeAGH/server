@@ -1,0 +1,6 @@
+{
+    "require": {
+        "j4mie/idiorm": "^1.5",
+        "doctrine/orm": "2.5.14"
+    }
+}

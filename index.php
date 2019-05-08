@@ -12,11 +12,12 @@ ORM::configure('mysql:host='.$dbHost.';dbname='.$dbName);
 ORM::configure('username', $dbUser);
 ORM::configure('password', $dbPass);
 
-$inputSize = (int) $_SERVER['CONTENT_LENGTH'];
+// var_dump($_SERVER);
+// $inputSize = (int) $_SERVER['CONTENT_LENGTH'];
 
-if($inputSize > MAX_INPUT_SIZE){
-    JsonArray::p(false, ['error' => 'Too large request MAX_INPUT_SIZE is ' + MAX_INPUT_SIZE], true);
-}
+// if($inputSize > MAX_INPUT_SIZE){
+//     JsonArray::p(false, ['error' => 'Too large request MAX_INPUT_SIZE is ' + MAX_INPUT_SIZE], true);
+// }
 $rawData = file_get_contents(INPUT_PATH);
 $jsonData = json_decode($rawData, true);
 

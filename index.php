@@ -3,7 +3,7 @@ include './config/const.php';
 include './lib/JsonArray.php';
 include './config/controllers.php';
 include './lib/Validator.php';
-include './lib/ControllerOutput.php';
+include './entities/ControllerOutput.php';
 include './lib/Auth.php';
 
 include './vendor/autoload.php';

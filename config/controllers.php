@@ -31,7 +31,7 @@ $controllesAction = [
     ],
 
     //################################################################################
-    'dataDistributor' => [
+    'dataDistributor' => [//TODO: dokończyć opis akcji
         'tmp' => [
             'token' => [
                 'require' => [
@@ -42,7 +42,7 @@ $controllesAction = [
     ],
 
     //################################################################################
-    'remoteControll' => [
+    'remoteControll' => [//TODO: dokończyć opis akcji
         'tmp' => [
             'token' => [
                 'require' => [

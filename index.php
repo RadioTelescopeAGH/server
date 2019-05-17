@@ -4,6 +4,7 @@ include './lib/JsonArray.php';
 include './config/controllers.php';
 include './lib/Validator.php';
 include './entities/ControllerOutput.php';
+include './entities/ShieldRequest.php';
 include './lib/Auth.php';
 
 include './vendor/autoload.php';
@@ -11,6 +12,11 @@ include './vendor/autoload.php';
 ORM::configure('mysql:host='.$dbHost.';dbname='.$dbName);
 ORM::configure('username', $dbUser);
 ORM::configure('password', $dbPass);
+
+// $tmp = ORM::raw_execute("select * from measurement");
+// $statement = ORM::get_last_statement();
+// $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+// exit();
 
 // var_dump($_SERVER);
 // $inputSize = (int) $_SERVER['CONTENT_LENGTH'];

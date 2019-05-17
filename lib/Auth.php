@@ -16,4 +16,10 @@ class Auth {
         }
     }
 
+    static function shieldAuth($token) {
+        if($token == $_shieldToken) {
+            JsonArray::p(false, ['error' => 'You do not habve permission to this action.' ], true);
+        }
+    }
+
 }

@@ -14,19 +14,64 @@ $controllesAction = [
                 'min' => [
                     'params' => [1],
                     'errorMessage' => 'Invalid ID min value.'
-                ]
-            ]
-        ]
+                ],
+            ],
+        ],
+    ],
+
+    //################################################################################
+    'dataCollector' => [
+        'addData' => [
+            'token' => [
+                'require' => [
+                    'errorMessage' => 'Insert token.'
+                ],
+            ],
+        ],
+    ],
+
+    //################################################################################
+    'dataDistributor' => [
+        'tmp' => [
+            'token' => [
+                'require' => [
+                    'errorMessage' => 'Insert token.'
+                ],
+            ],
+        ],
+    ],
+
+    //################################################################################
+    'remoteControll' => [
+        'tmp' => [
+            'token' => [
+                'require' => [
+                    'errorMessage' => 'Insert token.'
+                ],
+            ],
+        ],
     ],
     
+    //################################################################################
     'sensors' => [
         'getAllSensors' => [
             'token' => [
                 'require' => [
                     'errorMessage' => 'Insert token.'
                 ],
-            ]
-        ]
-    ]
+            ],
+        ],
+    ],
+
+    //################################################################################
+    'status' => [
+        'ping' => [
+            'token' => [
+                'require' => [
+                    'errorMessage' => 'Insert token.'
+                ],
+            ],
+        ],
+    ],
 
 ];

@@ -36,5 +36,15 @@ class JsonArray {
         echo '</pre>';
         if($exit) exit;
     }
+
+    public function toSend($action, $data) {
+        $static = [
+            'action' => $action,
+        ];
+        $dataArray  = [
+            'data' => $data,
+        ];
+        return $static + $dataArray;
+    }
     
 }

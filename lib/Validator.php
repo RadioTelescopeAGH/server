@@ -1,5 +1,11 @@
 <?php
-
+/*
+TODO:
+	- validacja przedziału >, <, <=, >=
+	- validacja daty
+	- validacja tablicy dowolnymi filtrami
+	- validacja rekurencyjna tablicy
+*/
 class Validator{
 
 	function secInput($input, $arg){

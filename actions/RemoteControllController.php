@@ -54,7 +54,7 @@ class RemoteControllController {
 
     static function getSensorsDataAction($data) {
         Auth::adminAuth($data['token']);
-        
+        //TODO: trzeba przekazać listę sensorów, ale trzeba przygotować validacje do tego jeszcze
         return ShieldAction::getSensorsData();
     }
 

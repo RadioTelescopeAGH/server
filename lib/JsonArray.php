@@ -37,8 +37,9 @@ class JsonArray {
         if($exit) exit;
     }
 
-    public function toSend($action, $data) {
+    public function toSend($controller, $action, $data) {
         $static = [
+            'controller' => $controller,
             'action' => $action,
         ];
         $dataArray  = [

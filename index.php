@@ -24,6 +24,8 @@ ORM::configure('password', $dbPass);
 // if($inputSize > MAX_INPUT_SIZE){
 //     JsonArray::p(false, ['error' => 'Too large request MAX_INPUT_SIZE is ' + MAX_INPUT_SIZE], true);
 // }
+
+
 $rawData = file_get_contents(INPUT_PATH);
 $jsonData = json_decode($rawData, true);
 
@@ -40,19 +42,21 @@ $exectRoute = [
 
 $secureArguments = [];
 
-foreach($controllesAction as $controller => $actions) {
-    foreach($actions as $action => $arguments) {
-        if($jsonData['action'] == $action){
-            $exectRoute['controller'] = $controller;
-            $exectRoute['action'] = $action;
-            $exectRoute['arguments'] = $arguments;
-        }
-    }
+$path = $jsonData['action'];
+$slashPosition = strpos($path, '/');
+if($slashPosition < 0) {
+    JsonArray::p(false, ['error' => 'Invalid action parameters.'], true);
 }
+$controller = substr($path, 0, $slashPosition);
+$action = substr($path, $slashPosition + 1);
 
-if($exectRoute['action'] == NULL) {
+if(!isset($controllesAction[$controller][$action])) {
     JsonArray::p(false, ['error' => 'Action not exist.'], true);
 }
+
+$exectRoute['controller'] = $controller;
+$exectRoute['action'] = $action;
+$exectRoute['arguments'] = $controllesAction[$controller][$action];
 
 //input argumnts validation if input arguments is defined
 if($controllesAction[$exectRoute['controller']][$exectRoute['action']] != NULL) {
@@ -63,20 +67,20 @@ if($controllesAction[$exectRoute['controller']][$exectRoute['action']] != NULL) 
 
     foreach($exectRoute['arguments'] as $argumentsName => $filtrOptions) {
         //checking requiring arguments
-        if(isset($exectRoute['arguments']['require'])){
+        if(isset($filtrOptions['require'])){
             if(!isset($data[$argumentsName])) {
-                JsonArray::p(false, ['error' => $exectRoute['arguments']['require']['errorMessage']], true);
+                JsonArray::p(false, ['error' => $filtrOptions['require']['errorMessage']], true);
             }
         }
         else {
             if(!isset($data[$argumentsName])) {
-                $secureArguments[$argumentsName] = NULL;
+                $secureArguments[$argumentsName] = isset($filtrOptions['defaultValue']) ? $filtrOptions['defaultValue'] : NULL;
                 continue;
             }
         }
 
         //filters validation
-        foreach($filtrOptions as $filterName => $arguments) {
+        foreach($filtrOptions as $filterName => $arguments) {            
             $filtrArray = isset($arguments['param']) ? ['filtr' => $filterName] + $arguments['param'] : ['filtr' => $filterName];
             $valid = Validator::secInput($data[$argumentsName], $filtrArray);
             if($valid['ok'] == false) {
@@ -90,7 +94,7 @@ if($controllesAction[$exectRoute['controller']][$exectRoute['action']] != NULL) 
 
 $controllerName = ucfirst($exectRoute['controller']).'Controller';
 $actionName = $exectRoute['action'].'Action';
-include './actions/'.$controllerName.'.php';
+include './controllers/'.$controllerName.'.php';
 $controllerOutput = $controllerName::$actionName($secureArguments);
 
 JsonArray::p($controllerOutput->status, $controllerOutput->data, true);
